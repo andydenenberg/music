@@ -16,6 +16,7 @@ gem 'sendgrid'
 
 gem 'execjs'
 gem 'therubyracer'
+gem 'mysql2'
 
 group :development do
   gem 'better_errors'
