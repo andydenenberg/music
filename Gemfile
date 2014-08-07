@@ -13,6 +13,10 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'sendgrid'
+
+gem 'execjs'
+gem 'therubyracer'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
