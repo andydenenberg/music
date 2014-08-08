@@ -71,6 +71,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.0)
     multi_json (1.10.1)
+    mysql2 (0.3.16)
     orm_adapter (0.5.0)
     polyglot (0.3.5)
     quiet_assets (1.0.3)
@@ -153,6 +154,7 @@ DEPENDENCIES
   hub
   jbuilder (~> 2.0)
   jquery-rails
+  mysql2
   quiet_assets
   rails (= 4.1.0)
   rails_layout
