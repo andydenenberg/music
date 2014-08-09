@@ -1,33 +1,122 @@
+		
+		<script type="text/javascript">
+			jQuery(function($) {
+
+					var index = 0,
+					playing = false;
+					mediaPath = '/songs_cache/',
+					extension = '.mp3',
+					tracks = [
+{"track":1, "name":"Happy Birthday Variation: In the style of Beethoven", "file":"Bill Withers - Lovely Day (Original Version)"},
+{"track":2, "name":"Wedding March Variation 1", "file":"Alicia Myers - I Want To Thank You"},
+{"track":3, "name":"Happy Birthday Variation: In the style of Tango", "file":"03_Happy_Birthday_Variation_In_The"},
+{"track":4, "name":"Wedding March Variation 2", "file":"04_Wedding_March_2"},
+{"track":5, "name":"Random Classical", "file":"05_AFI_com"}
+					],
+					trackCount = tracks.length,
+					npAction = $('#npAction'),
+					npTitle = $('#npTitle'),
+					audio = $('#audio1').bind('play', function() {
+						playing = true;
+						npAction.text('Now Playing:');
+					}).bind('pause', function() {
+						playing = false;
+						npAction.text('Paused:');
+					}).bind('ended', function() {
+						npAction.text('Paused:');
+						if((index + 1) < trackCount) {
+							index++;
+							loadTrack(index);
+							audio.play();
+						} else {
+							audio.pause();
+							index = 0;
+							loadTrack(index);
+						}
+					}).get(0),
+					btnPrev = $('#btnPrev').click(function() {
+						if((index - 1) > -1) {
+							index--;
+							loadTrack(index);
+							if(playing) {
+								audio.play();
+							}
+						} else {
+							audio.pause();
+							index = 0;
+							loadTrack(index);
+						}
+					}),
+					btnNext = $('#btnNext').click(function() {
+						if((index + 1) < trackCount) {
+							index++;
+							loadTrack(index);
+							if(playing) {
+								audio.play();
+							}
+						} else {
+							audio.pause();
+							index = 0;
+							loadTrack(index);
+						}
+					}),
+					playit = $('.play_it').click(function() {
+						var id = parseInt($(this)[0].innerText) ;
+						console.log(id) ;
+//						if(id !== index) {
+							playTrack(id);
+//						}
+					}),
+					loadTrack = function(id) {
+						$('.plSel').removeClass('plSel');
+						$('#plUL li:eq(' + id + ')').addClass('plSel');
+						npTitle.text(tracks[id].name);
+						index = id;
+						audio.src = mediaPath + tracks[id].file + extension;
+					},
+					playTrack = function(id) {
+						loadTrack(id);
+						audio.play();
+					};
+					
+					loadTrack(index);
+
+			});
+		</script>
+
+
+
+
+
+
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
           <h1 class="page-header">Montreal Sound Machine</h1>
 
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-				<a href="https://www.youtube.com/watch?v=VpC637CBmBM">
-						<img class="img-responsive img-circle" src="https://i.ytimg.com/vi/VpC637CBmBM/mqdefault.jpg" /></a>
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Highest Rated</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Most Listened To</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
+
+			<div id="content" role="main">
+				<div id="cwrap">
+					<div id="nowPlay" class="is-audio">
+						<h3 id="npAction">Paused:</h3>
+						<div id="npTitle"></div>
+					</div>
+					<div id="audiowrap">
+						<div id="audio0">
+							<audio id="audio1" controls="controls">
+								Your browser does not support the HTML5 Audio Tag.
+							</audio>
+						</div>
+						<noscript>Your browser does not support JavaScript or JavaScript has been disabled. You will need to enable JavaScript for this page.</noscript>
+						<div id="extraControls" class="is-audio">
+							<button id="btnPrev" class="ctrlbtn">|&lt;&lt; Prev Track</button> <button id="btnNext" class="ctrlbtn">Next Track &gt;&gt;|</button>
+						</div>
+					</div>
+					<div id="plwrap" class="is-audio">
+					</div>
+				</div>
+			</div>
 
           <h2 class="sub-header">Songs</h2>
           <div class="table-responsive">
@@ -43,14 +132,14 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
+                  <td class='play_it'>0</td>
+                  <td></td>
                   <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+                  <td><a href="/songs_cache/Jesse Cook's -Havana.mp3">Download</a></td>
+                  <td>Leron</td>
                 </tr>
                 <tr>
-                  <td>1,002</td>
+                  <td class='play_it'>1</td>
                   <td>amet</td>
                   <td>consectetur</td>
                   <td>adipiscing</td>

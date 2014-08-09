@@ -1,0 +1,149 @@
+		<script type="text/javascript">
+			jQuery(function($) {
+
+					var index = 0,
+					playing = false;
+					mediaPath = '/songs_cache/',
+					extension = '.mp3',
+					tracks = <%= @song_json.html_safe %> ,
+					trackCount = tracks.length,
+					npAction = $('#npAction'),
+					npTitle = $('#npTitle'),
+					audio = $('#audio1').bind('play', function() {
+						playing = true;
+						npAction.text('Now Playing:');
+					}).bind('pause', function() {
+						playing = false;
+						npAction.text('Paused:');
+					}).bind('ended', function() {
+						npAction.text('Paused:');
+						if((index + 1) < trackCount) {
+							index++;
+							loadTrack(index);
+							audio.play();
+						} else {
+							audio.pause();
+							index = 0;
+							loadTrack(index);
+						}
+					}).get(0),
+					btnPrev = $('#btnPrev').click(function() {
+						
+						console.log(tracks) ;
+						
+						if((index - 1) > -1) {
+							index--;
+							loadTrack(index);
+							if(playing) {
+								audio.play();
+							}
+						} else {
+							audio.pause();
+							index = 0;
+							loadTrack(index);
+						}
+					}),
+					btnNext = $('#btnNext').click(function() {
+						if((index + 1) < trackCount) {
+							index++;
+							loadTrack(index);
+							if(playing) {
+								audio.play();
+							}
+						} else {
+							audio.pause();
+							index = 0;
+							loadTrack(index);
+						}
+					}),
+					playit = $('.play_it').click(function() {
+						var id = parseInt($(this)[0].innerText) ;
+						console.log(id) ;
+//						if(id !== index) {
+							playTrack(id);
+//						}
+					}),
+					loadTrack = function(id) {
+						$('.plSel').removeClass('plSel');
+						$('#plUL li:eq(' + id + ')').addClass('plSel');
+						npTitle.text(tracks[id].name);
+						index = id;
+						audio.src = mediaPath + tracks[id].filename + extension;
+					},
+					playTrack = function(id) {
+						loadTrack(id);
+						audio.play();
+					};
+					
+					loadTrack(index);
+
+			});
+		</script>
+
+
+	    <div class="container-fluid">
+	      <div class="row">
+	        <div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
+	          <h1 class="page-header">Montreal Sound Machine</h1>
+
+
+						<p id="nowPlay" class="is-audio">
+							<h3 id="npAction">Paused:</h3>
+							<div id="npTitle"></div>
+						</p>
+						<p>
+								<audio id="audio1" controls="controls">
+									Your browser does not support the HTML5 Audio Tag.
+								</audio>
+						</p>
+								<button id="btnPrev" class="btn btn-default btn-xs">|&lt;&lt; Prev Track</button> 
+								<button id="btnNext" class="btn btn-default btn-xs">Next Track &gt;&gt;|</button>
+								
+
+
+	          <h2 class="sub-header">Songs</h2>
+	          <div class="table-responsive">
+	            <table class="table table-striped">
+	              <thead>
+	                <tr>
+					  <th>Play</th>
+	                  <th>Artist</th>
+	                  <th>Song Name</th>
+	                  <th>User</th>
+	                  <th>YouTube</th>
+	                  <th># times played</th>
+	                  <th>Rating</th>
+	                  <th>Comments</th>
+	                  <th></th>
+	                  <th></th>
+	                  <th></th>
+	                </tr>
+	              </thead>
+	
+  <tbody>
+    <% @songs.each_with_index do |song, index| %>
+      <tr>
+        <td><button type="button" class="btn btn-default btn-xs btn-primary"><%= index %></button> </td>
+        <td><%= song.artist %></td>
+        <td><%= song.name %></td>
+        <td><%= song.user %></td>
+        <td><a href="https://www.youtube.com/watch?v=<%= song.youtube_id %>">
+				<img class="img-rounded" style='width:40px;' src="https://i.ytimg.com/vi/<%= song.youtube_id %>/mqdefault.jpg" /></a></td>
+        <td><%= song.played %></td>
+        <td><%= song.rating %></td>
+        <td><%= song.comments %></td>
+        <td><%= link_to 'Show', song %></td>
+        <td><%= link_to 'Edit', edit_song_path(song) %></td>
+        <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<%= link_to 'New Song', new_song_path %>

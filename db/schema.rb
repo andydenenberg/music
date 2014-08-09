@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807045351) do
+ActiveRecord::Schema.define(version: 20140808174645) do
+
+  create_table "songs", force: true do |t|
+    t.string   "artist"
+    t.string   "name"
+    t.integer  "user"
+    t.string   "youtube_id"
+    t.string   "filename"
+    t.integer  "played"
+    t.integer  "rating"
+    t.string   "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
