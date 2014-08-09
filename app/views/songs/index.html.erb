@@ -1,5 +1,17 @@
 		<script type="text/javascript">
+
+		function show_song_playing(current,trackCount) {			
+			for (var i = 0; i < trackCount; i++) {
+				$('#' + i).removeClass('btn-success');
+				$('#' + i).addClass('btn-primary');
+			}
+			$('#' + current ).removeClass('btn-primary');
+			$('#' + current ).addClass('btn-success');
+		}
 			jQuery(function($) {
+
+				$('#0').removeClass('btn-primary');
+				$('#0').addClass('btn-success');
 
 					var index = 0,
 					playing = false;
@@ -9,6 +21,8 @@
 					trackCount = tracks.length,
 					npAction = $('#npAction'),
 					npTitle = $('#npTitle'),
+					npArtist = $('#npArtist'),
+					npUser = $('#npUser'),
 					audio = $('#audio1').bind('play', function() {
 						playing = true;
 						npAction.text('Now Playing:');
@@ -19,6 +33,7 @@
 						npAction.text('Paused:');
 						if((index + 1) < trackCount) {
 							index++;
+							show_song_playing(index, trackCount) ;
 							loadTrack(index);
 							audio.play();
 						} else {
@@ -28,11 +43,9 @@
 						}
 					}).get(0),
 					btnPrev = $('#btnPrev').click(function() {
-						
-						console.log(tracks) ;
-						
 						if((index - 1) > -1) {
 							index--;
+							show_song_playing(index, trackCount) ;
 							loadTrack(index);
 							if(playing) {
 								audio.play();
@@ -46,6 +59,7 @@
 					btnNext = $('#btnNext').click(function() {
 						if((index + 1) < trackCount) {
 							index++;
+							show_song_playing(index, trackCount) ;
 							loadTrack(index);
 							if(playing) {
 								audio.play();
@@ -57,16 +71,21 @@
 						}
 					}),
 					playit = $('.play_it').click(function() {
-						var id = parseInt($(this)[0].innerText) ;
-						console.log(id) ;
+						var row_id = parseInt($(this)[0].innerText) ;
+						show_song_playing(row_id, trackCount) ;
 //						if(id !== index) {
-							playTrack(id);
+							playTrack(row_id);
 //						}
 					}),
 					loadTrack = function(id) {
 						$('.plSel').removeClass('plSel');
 						$('#plUL li:eq(' + id + ')').addClass('plSel');
 						npTitle.text(tracks[id].name);
+						npArtist.text(tracks[id].artist);
+						npUser.text(tracks[id].user);
+						
+						$("#playing_image").attr('src', 'https://i.ytimg.com/vi/' + tracks[id].youtube_id + '/mqdefault.jpg');
+						$("#playing_youtube").attr('src', 'https://www.youtube.com/watch?v=' + tracks[id].youtube_id );
 						index = id;
 						audio.src = mediaPath + tracks[id].filename + extension;
 					},
@@ -87,19 +106,33 @@
 	          <h1 class="page-header">Montreal Sound Machine</h1>
 
 
-						<p id="nowPlay" class="is-audio">
-							<h3 id="npAction">Paused:</h3>
-							<div id="npTitle"></div>
-						</p>
-						<p>
-								<audio id="audio1" controls="controls">
-									Your browser does not support the HTML5 Audio Tag.
-								</audio>
-						</p>
-								<button id="btnPrev" class="btn btn-default btn-xs">|&lt;&lt; Prev Track</button> 
-								<button id="btnNext" class="btn btn-default btn-xs">Next Track &gt;&gt;|</button>
-								
+	          <div class="row placeholders">
+	            <div class="col-xs-6 col-sm-3 placeholder">
 
+					<a id='playing_youtube' href="https://www.youtube.com/watch?v=god7hAPv8f0">
+					<img id='playing_image' class="img-responsive" src="https://i.ytimg.com/vi/god7hAPv8f0/mqdefault.jpg" /></a>
+	            </div>
+	            <div class="col-xs-6 col-sm-3 placeholder">
+				    <h4 id="npTitle"></h4>
+	                <div id="npArtist"><span class="text-muted"></span></div>
+				    <h4 id="npUser"></h4>
+	                <div id="npRating"><span class="text-muted"></span></div>
+		
+
+	            </div>
+
+	            <div class="col-xs-6 col-sm-3 placeholder">
+							<p id="nowPlay" class="is-audio">
+								<h3 id="npAction">Paused:</h3>
+							</p>
+					<p>
+					<audio id="audio1" controls="controls">Your browser does not support the HTML5 Audio Tag.</audio>
+					</p><br>
+						<button id="btnPrev" class="btn btn-default btn-xs">|&lt;&lt; Prev Track</button> 
+						<button id="btnNext" class="btn btn-default btn-xs">Next Track &gt;&gt;|</button>
+		
+	            </div>
+	          </div>
 
 	          <h2 class="sub-header">Songs</h2>
 	          <div class="table-responsive">
@@ -123,10 +156,10 @@
   <tbody>
     <% @songs.each_with_index do |song, index| %>
       <tr>
-        <td><button type="button" class="btn btn-default btn-xs btn-primary"><%= index %></button> </td>
+        <td><button type="button" id='<%= index %>' class="play_it btn btn-xs btn-primary"><%= index %></button> </td>
         <td><%= song.artist %></td>
         <td><%= song.name %></td>
-        <td><%= song.user %></td>
+        <td><span class="label btn <%= colorize_by_name(song.user) %>"><%= x_users(song.user) %></span></td>
         <td><a href="https://www.youtube.com/watch?v=<%= song.youtube_id %>">
 				<img class="img-rounded" style='width:40px;' src="https://i.ytimg.com/vi/<%= song.youtube_id %>/mqdefault.jpg" /></a></td>
         <td><%= song.played %></td>
