@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :songs
+  resources :songs do
+    collection do
+      get 'sorted'
+    end
+  end
 
   root to: 'visitors#index'
   get 'cattlechuck' => 'visitors#cattlechuck'

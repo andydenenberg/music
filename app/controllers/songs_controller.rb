@@ -1,11 +1,26 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
 
+  def sorted
+    @songs = Song.all
+    @song_json = @songs.to_json
+    @users = User.all
+  end
+
   # GET /songs
   # GET /songs.json
   def index
-    @songs = Song.all
+    user = params[:user]
+    if user.nil? || user == '100'
+      @songs = Song.all
+    else      
+      @songs = Song.where(:user => user)
+    end
+    
     @song_json = @songs.to_json
+    @users_json = User.all.collect { |u| u.name }.to_json
+    puts @users_json
+    
   end
 
   # GET /songs/1

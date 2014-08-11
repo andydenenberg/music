@@ -8,6 +8,19 @@ desc 'Build the Databases'
 task :setup => ["db:drop", "db:create", "db:migrate", "db:seed", "build_db"]
 
 desc "Load Songs"
+task :create_users => :environment do 
+  user = User.create! :email => 'roberta@denenberg.net', :name => 'Roberta', :password => 'changeme', :password_confirmation => 'changeme' 
+  user = User.create! :email => 'pinoe1118@yahoo.com', :name => 'Ed', :password => 'changeme', :password_confirmation => 'changeme' 
+  user = User.create! :email => 'andy@denenberg.net', :name => 'Andy', :password => 'changeme', :password_confirmation => 'changeme' 
+  user = User.create! :email => 'psneddon@consultingsolutionsinc.com', :name => 'Paul', :password => 'changeme', :password_confirmation => 'changeme' 
+  user = User.create! :email => 'pino.ann@gmail.com', :name => 'Ann', :password => 'changeme', :password_confirmation => 'changeme' 
+  user = User.create! :email => 'rjcoletta@dcamplaw.com', :name => 'Bob', :password => 'changeme', :password_confirmation => 'changeme' 
+  user = User.create! :email => 'bevsneddon1@gmail.com', :name => 'Bev', :password => 'changeme', :password_confirmation => 'changeme' 
+  user = User.create! :email => 'colettahome@mchsi.com', :name => 'Val', :password => 'changeme', :password_confirmation => 'changeme' 
+end
+
+
+desc "Load Songs"
 task :load => :environment do  
 song = Song.create! :user => 1, :artist => 'Bill Withers', :name => 'Lovely Day', :youtube_id => 'sYi7uEvEEmk', :filename => 'Bill Withers - Lovely Day (Original Version)'
 song = Song.create! :user => 1, :artist => 'Bruno Mars', :name => 'Treasure', :youtube_id => 'nPvuNsRccVw', :filename => 'Bruno Mars - Treasure'
@@ -42,29 +55,52 @@ song = Song.create! :user => 3, :artist => 'The Cars', :name => 'Just What I Nee
 song = Song.create! :user => 3, :artist => 'Earth Wind & Fire', :name => 'September', :youtube_id => 'Gs069dndIYk', :filename => 'Earth, Wind & Fire - September'
 song = Song.create! :user => 3, :artist => 'Marshall Tucker Band', :name => 'Fire on the Mountain', :youtube_id => 'Qhl4UW_gFfY', :filename => 'Fire On The Mountain - Marshall Tucker'
 
-song = Song.create! :user => 4, :artist => 'Blondie', :name => 'Rapture', :youtube_id => 'z9kDW3y268Y', :filename => 'BLONDIE  RAPTURE'
-song = Song.create! :user => 4, :artist => 'Earth Wind and Fire', :name => 'Fantasy', :youtube_id => 'twICykaRRvY', :filename => 'EARTH WIND & FIRE - Fantasy'
-song = Song.create! :user => 4, :artist => 'Rod Stewart', :name => 'Young Turks', :youtube_id => 'zQ41hqlV0Kk', :filename => 'Rod Stewart - Young Turks'
-song = Song.create! :user => 4, :artist => 'Steely Dan', :name => 'Deacon Blues', :youtube_id => '2A0wGO3c2T8', :filename => 'Steely Dan-Deacon Blues'
-song = Song.create! :user => 4, :artist => 'Toto', :name => '99', :youtube_id => 'uFeBp1PDKyg', :filename => 'Toto - 99'
-song = Song.create! :user => 4, :artist => 'Elton John', :name => 'Tiny Dancer', :youtube_id => 'hoskDZRLOCs', :filename => 'Elton John - Tiny Dancer'
-song = Song.create! :user => 4, :artist => '10cc', :name => 'I’m not in Love', :youtube_id => 'Y2BavhwpIJg', :filename => "10 CC - I'm Not In Love"
-song = Song.create! :user => 4, :artist => 'Paul McCartney', :name => 'Band on the Run', :youtube_id => 'KBX2dySWGew', :filename => 'Wings - Band On The Run'
-song = Song.create! :user => 4, :artist => 'Talking Heads', :name => 'And She Was', :youtube_id => 'YgSVTdAtNYE', :filename => 'Talking Heads - And She Was'
-song = Song.create! :user => 4, :artist => 'Elvis Costello', :name => 'Veronica', :youtube_id => 'rp_YI30jhv8', :filename => 'ELVIS COSTELLO-veronica'
+song = Song.create! :user => 4, :artist => 'Ted Nugent', :name => 'Free Flight', :youtube_id => 'LsZu557nrIk', :filename => "Ted Nugent's Amboy Dukes - Free Flight"
+song = Song.create! :user => 4, :artist => 'Tommy Bolin', :name => 'Standing in the Rain', :youtube_id => '1eoDg5fhIp8', :filename => 'Tommy Bolin - Standing In The Rain'
+song = Song.create! :user => 4, :artist => 'Steve Miller', :name => 'The Window', :youtube_id => 'sG9Z7jYRe64', :filename => 'Steve Miller The Window'
+song = Song.create! :user => 4, :artist => 'REO', :name => 'Roll With the Changes', :youtube_id => 'eGgLPriZUSA', :filename => 'REO Speedwagon - Roll With The Changes'
+song = Song.create! :user => 4, :artist => 'Kamakazi Klones', :name => "Can't Buy the Beat", :youtube_id => 'dWVJJYtcVd0', :filename => "Can't Buy The Beat"
+song = Song.create! :user => 4, :artist => 'Romantics', :name => 'What I Like About You', :youtube_id => 'Rqnw5IfbZOU', :filename => 'The Romantics - What I Like About You'
+song = Song.create! :user => 4, :artist => 'Marshall Tucker', :name => 'Love is a Mystery', :youtube_id => '1T4tdIwYOcc', :filename => 'Love Is A Mystery by The Marshall Tucker Band'
+song = Song.create! :user => 4, :artist => 'Molly Hatchet', :name => "Dreams I'll Never See", :youtube_id => 'wtC7i4KMRgo', :filename => "Molly Hatchet-Dreams I'll Never See"
+song = Song.create! :user => 4, :artist => 'AC DC', :name => 'You Shook Me All Night Long', :youtube_id => 'Lo2qQmj0_h4', :filename => 'You Shook Me All Night Long'
+song = Song.create! :user => 4, :artist => 'Theme from Rawhide', :name => 'Cattlechuck tune', :youtube_id => '2KPplYp7K7M', :filename => 'Frankie Laine - Rawhide'
 
-song = Song.create! :user => 5, :artist => 'Ted Nugent', :name => 'Free Flight', :youtube_id => 'LsZu557nrIk', :filename => "Ted Nugent's Amboy Dukes - Free Flight"
-song = Song.create! :user => 5, :artist => 'Tommy Bolin', :name => 'Standing in the Rain', :youtube_id => '1eoDg5fhIp8', :filename => 'Tommy Bolin - Standing In The Rain'
-song = Song.create! :user => 5, :artist => 'Steve Miller', :name => 'The Window', :youtube_id => 'sG9Z7jYRe64', :filename => 'Steve Miller The Window'
-song = Song.create! :user => 5, :artist => 'REO', :name => 'Roll With the Changes', :youtube_id => 'eGgLPriZUSA', :filename => 'REO Speedwagon - Roll With The Changes'
-song = Song.create! :user => 5, :artist => 'Kamakazi Klones', :name => "Can't Buy the Beat", :youtube_id => 'dWVJJYtcVd0', :filename => "Can't Buy The Beat"
-song = Song.create! :user => 5, :artist => 'Romantics', :name => 'What I Like About You', :youtube_id => 'Rqnw5IfbZOU', :filename => 'The Romantics - What I Like About You'
-song = Song.create! :user => 5, :artist => 'Marshall Tucker', :name => 'Love is a Mystery', :youtube_id => '1T4tdIwYOcc', :filename => 'Love Is A Mystery by The Marshall Tucker Band'
-song = Song.create! :user => 5, :artist => 'Molly Hatchet', :name => "Dreams I'll Never See", :youtube_id => 'wtC7i4KMRgo', :filename => "Molly Hatchet-Dreams I'll Never See"
-song = Song.create! :user => 5, :artist => 'AC DC', :name => 'You Shook Me All Night Long', :youtube_id => 'Lo2qQmj0_h4', :filename => 'You Shook Me All Night Long'
-song = Song.create! :user => 5, :artist => 'Theme from Rawhide', :name => 'Cattlechuck tune', :youtube_id => '2KPplYp7K7M', :filename => 'Frankie Laine - Rawhide'
+song = Song.create! :user => 5, :artist => 'Blondie', :name => 'Rapture', :youtube_id => 'z9kDW3y268Y', :filename => 'BLONDIE  RAPTURE'
+song = Song.create! :user => 5, :artist => 'Earth Wind and Fire', :name => 'Fantasy', :youtube_id => 'twICykaRRvY', :filename => 'EARTH WIND & FIRE - Fantasy'
+song = Song.create! :user => 5, :artist => 'Rod Stewart', :name => 'Young Turks', :youtube_id => 'zQ41hqlV0Kk', :filename => 'Rod Stewart - Young Turks'
+song = Song.create! :user => 5, :artist => 'Steely Dan', :name => 'Deacon Blues', :youtube_id => '2A0wGO3c2T8', :filename => 'Steely Dan-Deacon Blues'
+song = Song.create! :user => 5, :artist => 'Toto', :name => '99', :youtube_id => 'uFeBp1PDKyg', :filename => 'Toto - 99'
+song = Song.create! :user => 5, :artist => 'Elton John', :name => 'Tiny Dancer', :youtube_id => 'hoskDZRLOCs', :filename => 'Elton John - Tiny Dancer'
+song = Song.create! :user => 5, :artist => '10cc', :name => 'I’m not in Love', :youtube_id => 'Y2BavhwpIJg', :filename => "10 CC - I'm Not In Love"
+song = Song.create! :user => 5, :artist => 'Paul McCartney', :name => 'Band on the Run', :youtube_id => 'KBX2dySWGew', :filename => 'Wings - Band On The Run'
+song = Song.create! :user => 5, :artist => 'Talking Heads', :name => 'And She Was', :youtube_id => 'YgSVTdAtNYE', :filename => 'Talking Heads - And She Was'
+song = Song.create! :user => 5, :artist => 'Elvis Costello', :name => 'Veronica', :youtube_id => 'rp_YI30jhv8', :filename => 'ELVIS COSTELLO-veronica'
+
+song = Song.create! :user => 6, :artist => 'Little Feat', :name => 'Trip Face Boogie', :youtube_id => 'WprmCj42aC0', :filename => "Trip Face Boogie - Little Feat"
+song = Song.create! :user => 6, :artist => 'Little Feat', :name => 'Fat Man in the Bathtub', :youtube_id => 'kb-yB4OxGBA', :filename => "Little feat - Fatman in the Bathtub"
+song = Song.create! :user => 6, :artist => 'Head East', :name => 'Never Been Any Reason', :youtube_id => '_mZEdwDFYpI', :filename => 'Head East - Never Been Any Reason'
+song = Song.create! :user => 6, :artist => 'Starlight Ramblers', :name => 'The Auctioneer', :youtube_id => 'PPDtP0kviLg', :filename => "Starlite Ramblers - The Auctioneer"
+song = Song.create! :user => 6, :artist => 'Asleep at the Wheel', :name => 'Route 66', :youtube_id => 'vifUaZQL8pc', :filename => "Asleep At The Wheel - Route 66"
+song = Song.create! :user => 6, :artist => 'Romantics', :name => 'What I Like About You', :youtube_id => 'Rqnw5IfbZOU', :filename => 'The Romantics - What I Like About You'
+song = Song.create! :user => 6, :artist => "Shout", :name => 'Otis Day & The Knights', :youtube_id => 'MG7KCOO76Wc', :filename => "Shout - Otis Day & The Knights"
+song = Song.create! :user => 6, :artist => "The Theme From Nightline", :name => 'Ted Koppel Archives', :youtube_id => 'LsZu557nrIk', :filename => "The Best of Nightline with Ted Koppel part 1"
+song = Song.create! :user => 6, :artist => "The Theme from Love Boat", :name => 'Love Boat', :youtube_id => 'ZmUlKPthrag', :filename => "Love Boat Theme"
+song = Song.create! :user => 6, :artist => "All the Young Dudes", :name => 'Mott the Hoople', :youtube_id => 'VKvNtAVZyOc', :filename => "Mott the Hoople - All the Young Dudes"
+
+song = Song.create! :user => 7, :artist => "Joni Mitchell", :name => 'California', :youtube_id => 'VKvNtAVZyOc', :filename => "Mott the Hoople - All the Young Dudes"
+
+#  California - Joni Mitchell (obviously)
+#  Bartender - Lady Antebellum (who doesn’t love a good drinking song?)
+#  All of Me - John Legend (sweet couple song)
+#  The Pretender - Jackson Brown (70s!)
+#  Shower the People - James Taylor (best JT song for a group who loves each other)
+#  22 - Taylor Swift (because we were 22 and I love Taylor Swift)
+#  Counting Stars- One Republic (because I really like this one)
+#  Nothing Lasts Forever - Maroon 5 (because I really like Maroon 5 and especially Adam Levine)
+#  Stayin Alive - Bee Gees (to bring us back to the disco ball)
+#  You're So Vain - Carly Simon (great song)
 
 end
-
   
 end

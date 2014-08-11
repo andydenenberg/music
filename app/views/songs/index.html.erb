@@ -1,179 +1,24 @@
-		<script type="text/javascript">
 
-		function show_song_playing(current,trackCount) {			
-			for (var i = 0; i < trackCount; i++) {
-				$('#' + i).removeClass('btn-success');
-				$('#' + i).addClass('btn-primary');
-			}
-			$('#' + current ).removeClass('btn-primary');
-			$('#' + current ).addClass('btn-success');
-		}
-			jQuery(function($) {
-
-				$('#0').removeClass('btn-primary');
-				$('#0').addClass('btn-success');
-
-					var index = 0,
-					playing = false;
-					mediaPath = '/songs_cache/',
-					extension = '.mp3',
-					tracks = <%= @song_json.html_safe %> ,
-					trackCount = tracks.length,
-					npAction = $('#npAction'),
-					npTitle = $('#npTitle'),
-					npArtist = $('#npArtist'),
-					npUser = $('#npUser'),
-					audio = $('#audio1').bind('play', function() {
-						playing = true;
-						npAction.text('Now Playing:');
-					}).bind('pause', function() {
-						playing = false;
-						npAction.text('Paused:');
-					}).bind('ended', function() {
-						npAction.text('Paused:');
-						if((index + 1) < trackCount) {
-							index++;
-							show_song_playing(index, trackCount) ;
-							loadTrack(index);
-							audio.play();
-						} else {
-							audio.pause();
-							index = 0;
-							loadTrack(index);
-						}
-					}).get(0),
-					btnPrev = $('#btnPrev').click(function() {
-						if((index - 1) > -1) {
-							index--;
-							show_song_playing(index, trackCount) ;
-							loadTrack(index);
-							if(playing) {
-								audio.play();
-							}
-						} else {
-							audio.pause();
-							index = 0;
-							loadTrack(index);
-						}
-					}),
-					btnNext = $('#btnNext').click(function() {
-						if((index + 1) < trackCount) {
-							index++;
-							show_song_playing(index, trackCount) ;
-							loadTrack(index);
-							if(playing) {
-								audio.play();
-							}
-						} else {
-							audio.pause();
-							index = 0;
-							loadTrack(index);
-						}
-					}),
-					playit = $('.play_it').click(function() {
-						var row_id = parseInt($(this)[0].innerText) ;
-						show_song_playing(row_id, trackCount) ;
-//						if(id !== index) {
-							playTrack(row_id);
-//						}
-					}),
-					loadTrack = function(id) {
-						$('.plSel').removeClass('plSel');
-						$('#plUL li:eq(' + id + ')').addClass('plSel');
-						npTitle.text(tracks[id].name);
-						npArtist.text(tracks[id].artist);
-						npUser.text(tracks[id].user);
-						
-						$("#playing_image").attr('src', 'https://i.ytimg.com/vi/' + tracks[id].youtube_id + '/mqdefault.jpg');
-						$("#playing_youtube").attr('src', 'https://www.youtube.com/watch?v=' + tracks[id].youtube_id );
-						index = id;
-						audio.src = mediaPath + tracks[id].filename + extension;
-					},
-					playTrack = function(id) {
-						loadTrack(id);
-						audio.play();
-					};
-					
-					loadTrack(index);
-
-			});
-		</script>
 
 
 	    <div class="container-fluid">
 	      <div class="row">
 	        <div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
-	          <h1 class="page-header">Montreal Sound Machine</h1>
-
-
-	          <div class="row placeholders">
-	            <div class="col-xs-6 col-sm-3 placeholder">
-
-					<a id='playing_youtube' href="https://www.youtube.com/watch?v=god7hAPv8f0">
-					<img id='playing_image' class="img-responsive" src="https://i.ytimg.com/vi/god7hAPv8f0/mqdefault.jpg" /></a>
-	            </div>
-	            <div class="col-xs-6 col-sm-3 placeholder">
-				    <h4 id="npTitle"></h4>
-	                Performed by: <div id="npArtist"><span class="text-muted"></span></div>
-				    Submitted by
-				    <h4 id="npUser"></h4>
-	                <div id="npRating"><span class="text-muted"></span></div>
 		
+	          
+			<form class="form-inline" role="form">
+			  <div class="form-group">
+				<h3 class="sub-header">
+				<%= select_tag "user_is", options_for_select(User.all.collect { |p| [p.name + "'s Songs", p.id] }.push(["Everyone's Songs", '100']), :selected => 100 ), :class => "form-control", :style => "font-size : 16pt"  %>
+				</h3>
+			  </div>
+			</form>
+				          
 
-	            </div>
+		<div id='table_list'>
+			<%= render 'table' %>
+		</div>
 
-	            <div class="col-xs-6 col-sm-3 placeholder">
-							<p id="nowPlay" class="is-audio">
-								<h3 id="npAction">Paused:</h3>
-							</p>
-					<p>
-					<audio id="audio1" controls="controls">Your browser does not support the HTML5 Audio Tag.</audio>
-					</p><br>
-						<button id="btnPrev" class="btn btn-default btn-xs">|&lt;&lt; Prev Track</button> 
-						<button id="btnNext" class="btn btn-default btn-xs">Next Track &gt;&gt;|</button>
-		
-	            </div>
-	          </div>
-
-	          <h2 class="sub-header">Songs</h2>
-	          <div class="table-responsive">
-	            <table class="table table-striped">
-	              <thead>
-	                <tr>
-					  <th>Play</th>
-	                  <th>Artist</th>
-	                  <th>Song Name</th>
-	                  <th>User</th>
-	                  <th>YouTube</th>
-	                  <th># times played</th>
-	                  <th>Rating</th>
-	                  <th>Comments</th>
-	                  <th></th>
-	                  <th></th>
-	                  <th></th>
-	                </tr>
-	              </thead>
-	
-  <tbody>
-    <% @songs.each_with_index do |song, index| %>
-      <tr>
-        <td><button type="button" id='<%= index %>' class="play_it btn btn-xs btn-primary"><%= index %></button> </td>
-        <td><%= song.artist %></td>
-        <td><%= song.name %></td>
-        <td><span class="label btn <%= colorize_by_name(song.user) %>"><%= x_users(song.user) %></span></td>
-        <td><a href="https://www.youtube.com/watch?v=<%= song.youtube_id %>">
-				<img class="img-rounded" style='width:40px;' src="https://i.ytimg.com/vi/<%= song.youtube_id %>/mqdefault.jpg" /></a></td>
-        <td><%= song.played %></td>
-        <td><%= song.rating %></td>
-        <td><%= song.comments %></td>
-        <td><%= link_to 'Show', song %></td>
-        <td><%= link_to 'Edit', edit_song_path(song) %></td>
-        <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-        </table>
-      </div>
     </div>
   </div>
 </div>

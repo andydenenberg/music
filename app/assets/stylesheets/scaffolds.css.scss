@@ -1,3 +1,21 @@
+/* Shadow Boxes */
+
+.introbox
+	{
+	min-height: 300px;
+	padding-right: 15px ;
+	padding-bottom: 1px ;
+	box-shadow: 6px 6px 6px #888888;
+	}
+
+.schoolbox
+	{
+	min-height: 300px;
+	box-shadow: 6px 6px 6px #888888;
+	border-width: 10px ;
+	}
+
+
 body {
   background-color: #fff;
   color: #333;
