@@ -6,16 +6,19 @@ audio { width: 80px; display: block; margin:20px; }
 
 		function show_song_playing(current,trackCount) {			
 			for (var i = 0; i < trackCount; i++) {
-				$('#' + i).removeClass('btn-success');
-				$('#' + i).addClass('btn-primary');
+				$('#' + i).removeClass('success');
+//				$('#' + i).addClass('btn-primary');
+//				$('#' + i).text('Play');
 			}
-			$('#' + current ).removeClass('btn-primary');
-			$('#' + current ).addClass('btn-success');
+//			$('#' + current ).removeClass('btn-primary');
+			$('#' + current ).addClass('success');
+//			$('#' + current).text('Playing');
+			
 		}
 			jQuery(function($) {
 
-				$('#0').removeClass('btn-primary');
-				$('#0').addClass('btn-success');
+//				$('#0').removeClass('btn-primary');
+				$('#0').addClass('success');
 
 					var index = 0,
 					playing = false;
@@ -75,13 +78,21 @@ audio { width: 80px; display: block; margin:20px; }
 							loadTrack(index);
 						}
 					}),
-					playit = $('.play_it').click(function() {
-						var row_id = parseInt($(this)[0].innerText) ;
-						show_song_playing(row_id, trackCount) ;
-//						if(id !== index) {
-							playTrack(row_id);
-//						}
-					}),
+					change_song = function example4() {
+					    var table = document.getElementById("tableid4");
+					    var rows = table.rows; // or table.getElementsByTagName("tr");
+					    for (var i = 0; i < rows.length; i++) {
+					        rows[i].onclick = (function() {
+					            var row = i-1; 
+					            return function() {
+									show_song_playing(row, trackCount) ;
+									playTrack(row);
+					              //alert("row"+cnt+" data="+this.cells[0].innerHTML);
+					            }    
+					        })(i);
+					    }
+					},
+					
 					loadTrack = function(id) {
 						$('.plSel').removeClass('plSel');
 						$('#plUL li:eq(' + id + ')').addClass('plSel');
@@ -100,9 +111,12 @@ audio { width: 80px; display: block; margin:20px; }
 					};
 					
 					loadTrack(index);
+					change_song();
 
 			});
-		</script>
+			
+
+</script>
 		
 <script>
 
@@ -123,8 +137,8 @@ $(function () {
 	<img id='playing_image' class="img-responsive" src="https://i.ytimg.com/vi/god7hAPv8f0/mqdefault.jpg" /></a>
 	<audio id="audio1" controls="controls">Your browser does not support the HTML5 Audio Tag.</audio>	
 
-    <small>selected by:</small>
-	<span id="npUser" class="label label-default"></span>
+    <small>selected by:
+	<span id="npUser" class="label label-default"></span></small>
 
 	<div style="display:none;">
 		<h5 id="npAction">Paused:</h5>
@@ -138,19 +152,16 @@ $(function () {
 	    <h4 id="npTitle"></h4>
 	    <small>by:</small>
 		<h4 id="npArtist"><span class="text-muted"></span></h4>
-	    <br>
 
   </div>
 
 </div>
 
-<small>Press <button type="button" class="btn btn-xs btn-primary">.</button> to play a song in list<br></small>
 <div class="table-responsive">
-   <table class="table table-striped">
+   <table  id="tableid4" class="table table-striped">
      <thead>
        <tr>
-		 <th>Play</th>
-         <th>Song - Artist User</th>
+         <td>User: <b>Song</b> - Artist</td>
          <th>YouTube</th>
          <th></th>
          <th></th>
@@ -160,9 +171,8 @@ $(function () {
 
 	  <tbody>
 	    <% @songs.each_with_index do |song, index| %>
-	      <tr>
-	        <td><button type="button" id='<%= index %>' class="play_it btn btn-xs btn-primary"><%= index %></button> </td>
-	        <td><%= song.name %> - <%= song.artist %> <span class="label btn <%= colorize_by_name(song.user) %>"><%= x_users(song.user) %></span></td>
+	      <tr  id='<%= index %>'>
+	        <td><%= x_users(song.user) %>: <b><%= song.name %></b> - <%= song.artist %> <span class="label btn <%= colorize_by_name(song.user) %>"></td>
 	        <td><a href="https://www.youtube.com/watch?v=<%= song.youtube_id %>">
 			<img class="img-rounded" style='width:40px;' src="https://i.ytimg.com/vi/<%= song.youtube_id %>/mqdefault.jpg" /></a></td>
 	        <td><%= link_to 'Show', song %></td>

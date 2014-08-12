@@ -88,18 +88,17 @@ song = Song.create! :user => 6, :artist => "The Theme From Nightline", :name => 
 song = Song.create! :user => 6, :artist => "The Theme from Love Boat", :name => 'Love Boat', :youtube_id => 'ZmUlKPthrag', :filename => "Love Boat Theme"
 song = Song.create! :user => 6, :artist => "All the Young Dudes", :name => 'Mott the Hoople', :youtube_id => 'VKvNtAVZyOc', :filename => "Mott the Hoople - All the Young Dudes"
 
-song = Song.create! :user => 7, :artist => "Joni Mitchell", :name => 'California', :youtube_id => 'VKvNtAVZyOc', :filename => "Mott the Hoople - All the Young Dudes"
+song = Song.create! :user => 7, :artist => "Joni Mitchell", :name => 'California', :youtube_id => 'Lm39YkGrHp8', :filename => "Joni Mitchell - California", :comments => 'obviously'
+song = Song.create! :user => 7, :artist => "Lady Antebellum", :name => 'Bartender', :youtube_id => '_rHuitW9xDc', :filename => "Lady Antebellum - Bartender", :comments => 'who doesn’t love a good drinking song?'
+song = Song.create! :user => 7, :artist => "John Legend", :name => 'All of Me', :youtube_id => '450p7goxZqg', :filename => "John Legend - All of Me", :comments => 'sweet couple song'
+song = Song.create! :user => 7, :artist => "Jackson Brown", :name => 'The Pretender', :youtube_id => 'AQiXQUGbac0', :filename => "Jackson Browne - The Pretender", :comments => '70s!'
+song = Song.create! :user => 7, :artist => "James Taylor", :name => 'Shower the People', :youtube_id => '5sCc5L7yOck', :filename => "James Taylor - Shower The People", :comments => 'best JT song for a group who loves each other'
+song = Song.create! :user => 7, :artist => "Taylor Swift", :name => '22', :youtube_id => 'AgFeZr5ptV8', :filename => "Taylor Swift - 22", :comments => 'because we were 22 and I love Taylor Swift'
+song = Song.create! :user => 7, :artist => "One Republic", :name => 'Counting Stars', :youtube_id => 'hT_nvWreIhg', :filename => "OneRepublic - Counting Stars", :comments => 'because I really like this one'
+song = Song.create! :user => 7, :artist => "Maroon 5", :name => 'Nothing Lasts Forever', :youtube_id => 'tQ2oe8SgUS8', :filename => "MAROON 5- NOTHING LAST FOREVER", :comments => 'because I really like Maroon 5 and especially Adam Levine'
+song = Song.create! :user => 7, :artist => "Bee Gees", :name => 'Stayin Alive', :youtube_id => 'I_izvAbhExY', :filename => "Bee Gees - Stayin' Alive (1977)", :comments => 'to bring us back to the disco ball'
+song = Song.create! :user => 7, :artist => "Carly Simon", :name => "You're So Vain - Carly Simon", :youtube_id => 'kb-yB4OxGBA', :filename => "Carly Simon - You're So Vain", :comments => 'great song'
 
-#  California - Joni Mitchell (obviously)
-#  Bartender - Lady Antebellum (who doesn’t love a good drinking song?)
-#  All of Me - John Legend (sweet couple song)
-#  The Pretender - Jackson Brown (70s!)
-#  Shower the People - James Taylor (best JT song for a group who loves each other)
-#  22 - Taylor Swift (because we were 22 and I love Taylor Swift)
-#  Counting Stars- One Republic (because I really like this one)
-#  Nothing Lasts Forever - Maroon 5 (because I really like Maroon 5 and especially Adam Levine)
-#  Stayin Alive - Bee Gees (to bring us back to the disco ball)
-#  You're So Vain - Carly Simon (great song)
 
 end
   

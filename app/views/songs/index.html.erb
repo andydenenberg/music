@@ -1,28 +1,25 @@
 
-
-
-	    <div class="container-fluid">
-	      <div class="row">
-	        <div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main">
 		
-	          
-			<form class="form-inline" role="form">
-			  <div class="form-group">
-				<h3 class="sub-header">
-				<%= select_tag "user_is", options_for_select(User.all.collect { |p| [p.name + "'s Songs", p.id] }.push(["Everyone's Songs", '100']), :selected => 100 ), :class => "form-control", :style => "font-size : 16pt"  %>
-				</h3>
-			  </div>
-			</form>
-				          
+		<form class="form-inline" role="form">
+		  <div class="form-group">
+			<h3 class="sub-header">
+			<%= select_tag "user_is", options_for_select(User.all.collect { |p| [p.name + "'s Songs", p.id] }.push(["Everyone's Songs", '100']), :selected => 100 ), :class => "form-control", :style => "font-size : 16pt"  %>
+			</h3>
+		  </div>
+		</form>				          
 
 		<div id='table_list'>
 			<%= render 'table' %>
 		</div>
 
+		<br>
+
+		<%= link_to 'New Song', new_song_path %>
+
     </div>
   </div>
 </div>
 
-<br>
-
-<%= link_to 'New Song', new_song_path %>
