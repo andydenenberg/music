@@ -2,7 +2,7 @@ module SongsHelper
 
   def users
     user = Array.new
-    user = [['Roberta' , 1], ['Ed' , 2], ['Andy', 3], ['Ann', 4], ['Paul', 5]]
+    user = [['Roberta' , 1], ['Ed' , 2], ['Andy', 3], ['Ann', 4], ['Paul', 5], ['Bob', 5], ['Bev', 5]]
     return user
   end
   

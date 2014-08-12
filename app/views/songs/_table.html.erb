@@ -124,7 +124,7 @@ $(function () {
 	<audio id="audio1" controls="controls">Your browser does not support the HTML5 Audio Tag.</audio>	
 
     <small>selected by:</small>
-    <h4 id="npUser" class="label btn btn-primary"></h4>
+	<span id="npUser" class="label label-default"></span>
 
 	<div style="display:none;">
 		<h5 id="npAction">Paused:</h5>
@@ -144,18 +144,14 @@ $(function () {
 
 </div>
 
+<small>Press <button type="button" class="btn btn-xs btn-primary">.</button> to play a song in list<br></small>
 <div class="table-responsive">
    <table class="table table-striped">
      <thead>
        <tr>
 		 <th>Play</th>
-         <th>Artist</th>
-         <th>Song Name</th>
-         <th>User</th>
+         <th>Song - Artist User</th>
          <th>YouTube</th>
-         <th># times played</th>
-         <th>Rating</th>
-         <th>Comments</th>
          <th></th>
          <th></th>
          <th></th>
@@ -166,14 +162,9 @@ $(function () {
 	    <% @songs.each_with_index do |song, index| %>
 	      <tr>
 	        <td><button type="button" id='<%= index %>' class="play_it btn btn-xs btn-primary"><%= index %></button> </td>
-	        <td><%= song.name %> - <%= song.artist %></td>
-	        <td><%= song.name %></td>
-	        <td><span class="label btn <%= colorize_by_name(song.user) %>"><%= x_users(song.user) %></span></td>
+	        <td><%= song.name %> - <%= song.artist %> <span class="label btn <%= colorize_by_name(song.user) %>"><%= x_users(song.user) %></span></td>
 	        <td><a href="https://www.youtube.com/watch?v=<%= song.youtube_id %>">
-					<img class="img-rounded" style='width:40px;' src="https://i.ytimg.com/vi/<%= song.youtube_id %>/mqdefault.jpg" /></a></td>
-	        <td><%= song.played %></td>
-	        <td><%= song.rating %></td>
-	        <td><%= song.comments %></td>
+			<img class="img-rounded" style='width:40px;' src="https://i.ytimg.com/vi/<%= song.youtube_id %>/mqdefault.jpg" /></a></td>
 	        <td><%= link_to 'Show', song %></td>
 	        <td><%= link_to 'Edit', edit_song_path(song) %></td>
 	        <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>

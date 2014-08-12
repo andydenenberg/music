@@ -1,4 +1,6 @@
 class SongsController < ApplicationController
+  before_filter :authenticate_user!
+  
   before_action :set_song, only: [:show, :edit, :update, :destroy]
 
   def sorted
@@ -12,7 +14,7 @@ class SongsController < ApplicationController
   def index
     user = params[:user]
     if user.nil? || user == '100'
-      @songs = Song.all
+      @songs = Song.all.shuffle
     else      
       @songs = Song.where(:user => user)
     end

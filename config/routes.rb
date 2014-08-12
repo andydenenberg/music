@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   root to: 'visitors#index'
   get 'cattlechuck' => 'visitors#cattlechuck'
+  get 'schedule' => 'visitors#schedule'
   devise_for :users
   resources :users
 end
